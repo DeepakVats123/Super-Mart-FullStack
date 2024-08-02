@@ -1,4 +1,3 @@
-import { ThemeToggle } from "@/components/ThemeToggle";
 import Image from "next/image";
 import grp1 from "../../public/grp1.jpg"
 import grp2 from "../../public/grp2.jpg"
