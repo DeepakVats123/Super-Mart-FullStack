@@ -22,7 +22,7 @@ const Login = () => {
       <label  htmlFor="password">Password</label>
       <Input type="password" placeholder="write your password here" />
 
-      <Button className='mt-5 h-9 font-bold bg-blue-600'>Log In</Button>
+      <Button className='mt-5 h-8 align-middle border-black hover:bg-black hover:text-white font-bold dark:hover:text-black dark:hover:border-white dark:border-white dark:hover:bg-white' variant={'outline'}>Log In</Button>
       <br />
       <div className='text-center mt-5'>
       <span >Create new account ? <Link className='text-blue-500 font-semibold hover:text-blue-700' href={'/signup'}>Sign Up</Link></span>

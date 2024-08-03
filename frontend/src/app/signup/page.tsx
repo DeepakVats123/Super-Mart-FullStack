@@ -25,7 +25,7 @@ const SignUpPage = () => {
       <label  htmlFor="password">Password</label>
       <Input type="password" placeholder="write your password here" />
 
-      <Button className='mt-5 h-9 font-bold bg-blue-600'>Sign Up</Button>
+      <Button className='mt-5 h-8 align-middle border-black hover:bg-black hover:text-white font-bold dark:hover:text-black dark:hover:border-white dark:border-white dark:hover:bg-white' variant={'outline'}>Sign Up</Button>
       <br />
       <div className='text-center mt-5'>
       <span >Already an user ? <Link className='text-blue-500 font-semibold hover:text-blue-700' href={'/login'}>Login</Link></span>

@@ -8,7 +8,7 @@ const MenProductsPage = () => {
   const [products, setProducts] = useState([]);
 
   const getData = () =>{
-    fetch(`${BASE_URL}/products/get-products`,{cache: 'no-cache'})
+    fetch(`${BASE_URL}/products/men`)
     .then(res => res.json())
     .then(data => setProducts(data.data))
   }
