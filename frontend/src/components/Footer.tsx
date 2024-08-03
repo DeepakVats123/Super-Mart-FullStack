@@ -13,9 +13,9 @@ const Footer = () => {
             <span className='font-bold text-xl m-2'>Super Mart</span>
         </div>
 
-        <div className='grid sm:grid-cols-4 grid-cols-2 sm:px-10 gap-10 px-5 text-center mt-10'>
+        <div className='grid sm:grid-cols-4 grid-cols-2 sm:px-10 gap-8 px-1 text-center mt-10'>
             <div className='text-left text-sm'>
-                <h3 className='font-bold text-xl underline mb-2'>MEN</h3>
+                <h3 className='font-bold sm:text-xl text-lg underline mb-2'>MEN</h3>
                 <p><Link href={'#'}>Clothing</Link></p>
                 <p><Link href={'#'}>Travel</Link></p>
                 <p><Link href={'#'}>Causual</Link></p>
@@ -25,7 +25,7 @@ const Footer = () => {
             </div>
 
             <div className='text-left text-sm'>
-                <h3 className='font-bold text-xl underline mb-2'>WOMEN</h3>
+                <h3 className='font-bold sm:text-xl text-lg underline mb-2'>WOMEN</h3>
                 <p><Link href={'#'}>Clothing</Link></p>
                 <p><Link href={'#'}>Indian Wear</Link></p>
                 <p><Link href={'#'}>Western Wear</Link></p>
@@ -35,7 +35,7 @@ const Footer = () => {
             </div>
 
             <div className='text-left text-sm'>
-                <h3 className='font-bold text-xl underline mb-2'>RESOURCES</h3>
+                <h3 className='font-bold sm:text-xl text-lg underline mb-2'>RESOURCES</h3>
                 <p><Link href={'#'}>Shadcn/UI</Link></p>
                 <p><Link href={'#'}>Tailwind CSS</Link></p>
                 <p><Link href={'#'}>Node.js</Link></p>
@@ -43,9 +43,9 @@ const Footer = () => {
             </div>
 
             <div className='text-left text-sm'>
-                <h3 className='font-bold text-xl underline mb-2'>FOLLOW US</h3>
+                <h3 className='font-bold sm:text-xl text-lg underline mb-2'>FOLLOW US</h3>
                 <p><Link href={'#'}>GitHub</Link></p>
-                <p><Link href={'#'}>LinkedIm</Link></p>
+                <p><Link href={'#'}>LinkedIn</Link></p>
                 <p><Link href={'#'}>Twitter</Link></p>
                
             </div>

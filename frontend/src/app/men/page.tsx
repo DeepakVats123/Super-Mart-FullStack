@@ -1,16 +1,31 @@
 "use client"
-import React from 'react'
-import { Button } from "@/components/ui/button";
+import React, { cache, useEffect, useState } from 'react'
+import ProductCard from '@/components/ProductCard';
+import { BASE_URL } from '@/constants/baseURL';
 
 
 const MenProductsPage = () => {
-  function fireAlert(){
-      alert("Hey I'm clicked")
+  const [products, setProducts] = useState([]);
+
+  const getData = () =>{
+    fetch(`${BASE_URL}/products/get-products`,{cache: 'no-cache'})
+    .then(res => res.json())
+    .then(data => setProducts(data.data))
   }
+
+  useEffect(()=>{
+      getData()
+  },[])
+
+
+  
   return (
-    <div className='text-center items-center m-5 border-2 border-blue-500'>
-      <h1>Men Page</h1>
-      <Button onClick={fireAlert} variant={'outline'}>Click me!</Button>
+    <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-5 p-5 gap-5'>
+      {products && Array.isArray(products) && products.map((e: any) => {
+        return <ProductCard key={e._id} details={e} />
+      })
+      }
+      
     </div>
   )
 }
