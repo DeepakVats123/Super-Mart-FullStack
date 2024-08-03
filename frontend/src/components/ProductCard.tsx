@@ -19,7 +19,7 @@ const ProductCard = ({details}: any) => {
         <span className='text-sm line-through ml-3 font-bold text-slate-600'>{details.strikedoffprice}</span>
         <br />
 
-        <div className='text-center'>
+        <div className='text-center p-2'>
             <Button className='h-8 align-middle border-black hover:bg-black hover:text-white font-bold dark:hover:text-black dark:hover:border-white dark:border-white dark:hover:bg-white' variant={'outline'}>Add to Cart</Button>
         </div>
         

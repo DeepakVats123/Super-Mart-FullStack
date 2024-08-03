@@ -1,7 +1,9 @@
 "use client"
-import React, { cache, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/ProductCard';
 import { BASE_URL } from '@/constants/baseURL';
+import ProductCardSkeleton from '@/components/ProductCardSkeleton';
+
 
 
 const MenProductsPage = () => {
@@ -21,7 +23,12 @@ const MenProductsPage = () => {
   
   return (
     <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-5 p-5 gap-5'>
-      {products && Array.isArray(products) && products.map((e: any) => {
+      {
+      !products.length ? [1,2,3,4,5].map((e: any) => {
+        return <ProductCardSkeleton />
+      })
+      :
+      products && Array.isArray(products) && products.map((e: any) => {
         return <ProductCard key={e._id} details={e} />
       })
       }
