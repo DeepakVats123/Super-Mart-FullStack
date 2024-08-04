@@ -5,10 +5,13 @@ import { Button } from '@/components/ui/button';
 import slog from '../../../public/s-log.png'
 import Link from 'next/link';
 import Image from 'next/image';
+import Navbar from '@/components/Navbar';
 
 
 const Login = () => {
   return (
+    <div>
+      <Navbar status='hidden' />
     <div className='border-2 m-auto p-10 mt-10 border-r-2 rounded-lg sm:w-96 w-80' >
       <div className='text-center mb-5'>
         <Image className='w-16 m-auto' src={slog} alt='logo' />
@@ -28,6 +31,7 @@ const Login = () => {
       <span >Create new account ? <Link className='text-blue-500 font-semibold hover:text-blue-700' href={'/signup'}>Sign Up</Link></span>
       </div>
     </form>
+    </div>
     </div>
   )
 }

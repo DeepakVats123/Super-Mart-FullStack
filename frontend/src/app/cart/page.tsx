@@ -1,8 +1,13 @@
 import React from 'react'
+import Navbar from '@/components/Navbar'
 
 const Cart = () => {
   return (
-    <div>cart</div>
+    <div>
+      <Navbar status='hidden' />
+
+      <div>Cart</div>
+    </div>
   )
 }
 
