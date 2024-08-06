@@ -1,7 +1,6 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ProductCard from '@/components/ProductCard';
-import { BASE_URL } from '@/constants/baseURL';
 import ProductCardSkeleton from '@/components/ProductCardSkeleton';
 import Navbar from '@/components/Navbar';
 import Filters from '@/components/Filters';
@@ -11,9 +10,9 @@ import useFetch from '@/utils/useFetch';
 
 
 const MenProductsPage = () => {
-  const [sorting, setsorting] = useState<any>(()=>()=>(a:any,b:any)=>{})
+
+  const [sorting, setsorting] = useState<any>(()=>()=>()=>{})
   const products = useFetch('/products/men')
-  
 
   return (
     <div>
@@ -29,8 +28,7 @@ const MenProductsPage = () => {
       products.sort(sorting).map((e: any) => {
         return <ProductCard key={e._id} details={e} />
       })
-      }
-      
+      } 
     </div>
     </div>
   )

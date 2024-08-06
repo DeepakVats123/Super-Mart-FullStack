@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { ThemeToggle } from './ThemeToggle'
 import Link from 'next/link'
 import { FaUser } from "react-icons/fa";
@@ -9,6 +9,9 @@ import Image from 'next/image';
 import slog from '../../public/s-log.png'
 import { Input } from "@/components/ui/input"
 import { usePathname } from 'next/navigation';
+import { BASE_URL } from '@/constants/baseURL';
+import { ScrollArea } from "@/components/ui/scroll-area"
+
 
 
 const NavLinks = [
@@ -18,7 +21,31 @@ const NavLinks = [
 
 const Navbar = ({status}: any) => {
   const pathName = usePathname()
+  let timer = useRef<any>(null)
+  const [searchItems, setSearchItems] = useState<[]>([])
+
+  const getData = (text: String) => {
+    console.log(" get data working");
+    fetch(`${BASE_URL}/products/search?text=${text}`)
+    .then(res => res.json())
+    .then(data => setSearchItems(data.data))
+    .catch(err => console.log(err))
+  }
+
+  const debounce = (event: any) =>{
+    console.log("Debouncing is working");
+    if(timer.current) clearTimeout(timer.current)
+    timer.current = setTimeout(()=>{
+      getData(event.target.value)
+  },800)
+    
+    
+  }
+
+  
+
   return (
+    <>
     <div className='grid lg:grid-cols-3 grid-cols-2 gap-2  lg:p-5 px-5 py-2 lg:px-10  sticky top-0 dark:bg-slate-800 bg-white shadow-md'>
 
         <div className='text-left lg:col-start-1'> 
@@ -36,9 +63,9 @@ const Navbar = ({status}: any) => {
             const isActive = pathName.startsWith(e.path);
             return <Link className={isActive? 'font-bold text-blue-500 underline' : 'font-bold hover:text-blue-500'} href={e.path}>{e.name}</Link>
           })}
-            <div className={`flex ${status}`}>
-            <span className='text-4xl mr-3'><CiSearch /></span>
-            <Input  type='text' placeholder={`Search for products`} />
+            <div className={`flex ${status} items-center`}>
+            <span className='text-2xl mr-1'><CiSearch /></span>
+            <Input onChange={debounce}  className='border-0 w-full h-8'  type='text' placeholder={`Search for products`} />
             </div>
         </div>
 
@@ -50,6 +77,37 @@ const Navbar = ({status}: any) => {
              </Link>
         </div>
     </div>
+
+    {
+      searchItems.length > 0 && <div className={`flex justify-center`}>
+      <div className={`w-[90%] sm:w-[500px] h-80 p-1 px-2 border fixed m-auto rounded-lg dark:bg-black dark:text-white bg-white overflow-y-scroll`}>
+        <div className='flex justify-between border-b'>
+              <div className='text-slate-600'>Search Results</div>
+              <div className='cursor-pointer text-2xl' onClick={()=>{
+                setSearchItems([])
+              }}>X
+              </div>   
+        </div>
+      
+      {
+        searchItems.map((e: any) => {
+          return <div className='flex h-16 w-full border my-1 rounded-lg overflow-hidden hover:bg-slate-200 dark:hover:bg-gray-900'>
+            <div className='w-14 overflow-hidden'>
+              <img className='w-full' src={e.image_url} alt="" />
+            </div>
+            <div className='p-1 px-3 '>
+              <h1 className='text-sm'>{e.name}</h1>
+              <p className='text-slate-600'>Brand: {e.brand}</p>
+            </div>
+          </div>
+        })
+      }
+              
+
+      </div>
+    </div>
+    }
+  </>
   )
 }
 
