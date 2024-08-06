@@ -4,7 +4,7 @@ import React from 'react'
 
 const Filters = ({setsorting}: any) => {
 
-  function handleSort(e:any){
+  function handleSort(e: React.ChangeEvent<HTMLSelectElement>){
     console.log(e.target.value)
    if(e.target.value == "sort-by"){
       setsorting(()=> ()=> (a:any,b:any)=>{})

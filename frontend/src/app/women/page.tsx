@@ -5,25 +5,14 @@ import { BASE_URL } from '@/constants/baseURL';
 import ProductCardSkeleton from '@/components/ProductCardSkeleton';
 import Navbar from '@/components/Navbar';
 import Filters from '@/components/Filters';
+import useFetch from '@/utils/useFetch';
 
 
 
 const WomenProductsPage = () => {
-  const [products, setProducts] = useState([]);
-  const [sorting, setsorting] = useState(()=>()=>(a:any,b:any)=>{})
+  const [sorting, setsorting] = useState<any>(()=>()=>(a:any,b:any)=>{})
+  const products = useFetch('/products/women')
 
-  const getData = () =>{
-    fetch(`${BASE_URL}/products/women`)
-    .then(res => res.json())
-    .then(data => setProducts(data.data))
-  }
-
-  useEffect(()=>{
-      getData()
-  },[])
-
-
-  
   return (
     <div>
       <Navbar />
