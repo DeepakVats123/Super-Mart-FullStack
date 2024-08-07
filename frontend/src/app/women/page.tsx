@@ -24,7 +24,7 @@ const WomenProductsPage = () => {
       })
       :
       products && Array.isArray(products) && products.sort(sorting).map((e: any) => {
-        return <ProductCard key={e._id} details={e} />
+        return <ProductCard key={e._id} details={e} path={'/women'} />
       })
       }
     </div>

@@ -26,7 +26,7 @@ const MenProductsPage = () => {
       })
       :
       products.sort(sorting).map((e: any) => {
-        return <ProductCard key={e._id} details={e} />
+        return <ProductCard key={e._id} details={e} path={'/men'} />
       })
       } 
     </div>
