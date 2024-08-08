@@ -39,6 +39,7 @@ const SignUpPage = () => {
       }))
   }
 
+
   const validateSignIn = (data: any) => {
     const errors: any = {};
     if (!data.fullName || data.fullName.length < 4) {
@@ -68,10 +69,11 @@ const SignUpPage = () => {
         url,
         {
           method: 'POST',
+          body: JSON.stringify(formData),
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          
         } 
       );
       const result = await response.json();

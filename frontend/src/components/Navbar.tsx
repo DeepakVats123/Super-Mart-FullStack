@@ -82,7 +82,7 @@ const Navbar = ({status}: any) => {
       searchItems.length > 0 && <div key={'search item Box'} className={`flex justify-center`}>
       <div className={`w-[90%] sm:w-[500px] h-80 p-1 px-2 border fixed m-auto rounded-lg dark:bg-black dark:text-white bg-white overflow-y-scroll`}>
         <div className='flex justify-between border-b sticky -top-1 dark:bg-black bg-white'>
-              <div className='text-slate-600'>Search Results</div>
+              <div className='text-slate-600'>{searchItems?.length} products found..</div>
               <div className='cursor-pointer text-2xl ' onClick={()=>{
                 setSearchItems([])
               }}>X
