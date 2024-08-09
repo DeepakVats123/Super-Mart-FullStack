@@ -2,14 +2,14 @@ import Image from "next/image";
 import grp1 from "../../public/grp1.jpg"
 import grp2 from "../../public/grp2.jpg"
 import { CarouselHome } from "@/components/CarousalUI";
-import Navbar from "@/components/Navbar";
+import Logout from "@/components/Logout";
 
 
 
 export default function Home() {
   return (
     <div>
-      <Navbar status='hidden' />
+     
     <div className="p-10 ">
       <div className="text-center m-5 text-blue-400 font-bold">
         <h1 className="sm:text-4xl text-xl">SHOP BY CATEGORY</h1>
@@ -22,6 +22,7 @@ export default function Home() {
       <div className="p-20 ab">
           <CarouselHome />
       </div>
+      <Logout />
 
     </div>
     </div>

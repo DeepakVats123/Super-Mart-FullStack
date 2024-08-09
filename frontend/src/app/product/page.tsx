@@ -1,5 +1,4 @@
 "use client"
-import Navbar from '@/components/Navbar'
 import ProductDetails from '@/components/ProductDetails'
 import useFetch from '@/utils/useFetch'
 
@@ -12,7 +11,6 @@ const ProductPage = ({searchParams}: any) => {
     
   return (
     <>
-    <Navbar />
     <ProductDetails ProductData={data}  />
     
     

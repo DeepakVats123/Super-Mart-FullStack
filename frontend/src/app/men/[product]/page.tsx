@@ -1,5 +1,4 @@
 "use client"
-import Navbar from '@/components/Navbar'
 import React, { useEffect, useState } from 'react'
 import useFetch from '@/utils/useFetch'
 import ProductDetails from '@/components/ProductDetails'
@@ -10,7 +9,6 @@ const page = ({params}: any) => {
   
   return (
     <>
-        <Navbar />
         <ProductDetails ProductData={data} />
     </>
   )

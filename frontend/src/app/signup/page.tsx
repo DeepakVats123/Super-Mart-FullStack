@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import slog from '../../../public/s-log.png'
-import Navbar from '@/components/Navbar';
 import { useRouter } from 'next/navigation';
 import { BASE_URL } from '@/constants/baseURL';
 import { useToast } from "@/components/ui/use-toast"
@@ -107,7 +106,6 @@ const SignUpPage = () => {
 
   return (
     <div>
-      <Navbar status='hidden' />
     <div className='border-2 m-auto  p-10 mt-10 border-r-2 rounded-lg sm:w-[500px] w-80' >
       <div className='text-center mb-5'>
         <Image className='w-16 m-auto' src={slog} alt='logo' />

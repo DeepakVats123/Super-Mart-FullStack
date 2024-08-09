@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import slog from '../../../public/s-log.png'
 import Link from 'next/link';
 import Image from 'next/image';
-import Navbar from '@/components/Navbar';
 import { BASE_URL } from '@/constants/baseURL';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
@@ -59,15 +58,23 @@ const Login = () => {
     );
     const result = await res.json();
     console.log("result:", result)
-    toast({
-      title: "Login Successfully !!",
-      description: "Welcome to Super-Mart !!"
-    })
-    setTimeout(() => {
-      setLoading(false)
-      setLoginData({email: "", password: ""})
-      setIsNavigate(true)
+    if(result.statusCode === 200){
+      toast({
+        title: "Login Successfully !!",
+        description: "Welcome to Super-Mart !!"
+      })
       localStorage.setItem('superMart-token',JSON.stringify(result.data.accessToken))
+      setIsNavigate(true)
+    }
+    else if(result.statusCode === 202){
+      toast({
+        title: "Your email or password is incorrect !!",
+        description: "Please provide valid valid credentials !!"
+      })
+    }
+    
+    setTimeout(() => {
+      setLoading(false)  
     }, 2000);
 
     } catch (error) {
@@ -81,13 +88,12 @@ const Login = () => {
     navigate.push('/')
   }
 
-  if(isNavigate || localStorage.getItem('superMart-token')!== undefined){
+  if(isNavigate || localStorage.getItem('superMart-token')){
     handleNavigation()
   }
 
   return (
     <div>
-      <Navbar status='hidden' />
     <div className='border-2 m-auto p-10 mt-10 border-r-2 rounded-lg sm:w-[500px] w-80' >
       <div className='text-center mb-5'>
         <Image className='w-16 m-auto' src={slog} alt='logo' />
