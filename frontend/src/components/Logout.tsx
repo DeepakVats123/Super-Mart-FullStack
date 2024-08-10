@@ -18,12 +18,26 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import { useDispatch, useSelector } from "react-redux"
+import { logoutUser } from "@/redux/features/userSlice"
+
   
-  function Logout({setIsLoggedIn}: any) {
+  function Logout() {
+    const dispatch = useDispatch()
+    const userDetails = useSelector((state: any) => state.userDetails)
+    const userNameFromLocalStorage: any = localStorage.getItem("superMart-user")
+    
+
+
+    const logOutUserFromApi =  ()=>{
+      dispatch(logoutUser(false))
+      localStorage.clear()
+    }
+  
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="hover:bg-blue-500 text ml-3 -mr-2" variant="outline"><User className="mr-2 h-4 w-4" /> Account</Button>
+          <Button className="hover:bg-blue-500 text ml-3 -mr-2" variant="outline"><User className="mr-2 h-4 w-4" /> {userDetails.fullName || JSON.parse(userNameFromLocalStorage)}</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-48">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -54,10 +68,7 @@ import {
           </DropdownMenuItem>
          
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="cursor-pointer" onClick={()=>{
-            localStorage.clear()
-            setIsLoggedIn(false)
-            }}>
+          <DropdownMenuItem className="cursor-pointer" onClick={logOutUserFromApi}>
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import Navbar from "@/components/Navbar";
+import StoreProvider from "@/redux/StoreProvider";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,20 +21,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    
     <html lang="en">
       <body className={inter.className}>
+      <StoreProvider>
         <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
         >
+          
           <Navbar />
             {children}
           <Footer />
           <Toaster />
         </ThemeProvider>
+        </StoreProvider>
         </body>
     </html>
+    
   );
 }

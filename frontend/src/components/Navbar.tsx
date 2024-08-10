@@ -12,6 +12,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { BASE_URL } from '@/constants/baseURL';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import Logout from './Logout';
+import { useSelector } from 'react-redux';
 
 const NavLinks = [
   { name: "MEN", path: "/men"},
@@ -22,8 +23,10 @@ const Navbar = ({status}: any) => {
   const pathName = usePathname()
   let timer = useRef<any>(null)
   const [searchItems, setSearchItems] = useState<[]>([])
-  const [isLoggedIn, setIsLoggedIn] = useState<any>(true)
   const navigate = useRouter()
+  const isLoggedIn = useSelector((state: any)=> state.authStatus)
+
+  const userNameFromLocalStorage: any = localStorage.getItem("superMart-user")
 
   // if(localStorage.getItem("superMart-Token")){
   //   setIsLoggedIn(true)
@@ -80,7 +83,7 @@ const Navbar = ({status}: any) => {
 
         <div key={'ProfileSideBox'} className='flex items-center justify-end lg:col-start-3 col-start-2'>
             <ThemeToggle  />
-            {isLoggedIn? <Logout setIsLoggedIn={setIsLoggedIn} /> : <Link className={pathName.startsWith('/login') || pathName.startsWith('/signup')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center text-blue-500' : 'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center'} href={'/login'}> <FaUser className='mr-2'/> Login</Link>}
+            {isLoggedIn || JSON.parse(userNameFromLocalStorage)? <Logout /> : <Link className={pathName.startsWith('/login') || pathName.startsWith('/signup')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center text-blue-500' : 'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center'} href={'/login'}> <FaUser className='mr-2'/> Login</Link>}
             <Link  className={pathName.startsWith('/cart')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center text-blue-700 sm:text-2xl text-xl' : 'font-bold sm:ml-5 ml-3 hover:text-blue-400 flex items-center sm:text-2xl text-xl'} href={'/cart'}><FaShoppingCart />
              <span className='text-white bg-red-500 rounded-full text-xs text-center w-5 -ml-3 -mt-5 font-bold'>9</span>
              </Link>

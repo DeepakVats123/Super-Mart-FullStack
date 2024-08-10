@@ -1,12 +1,19 @@
+"use client"
 import Image from "next/image";
 import grp1 from "../../public/grp1.jpg"
 import grp2 from "../../public/grp2.jpg"
 import { CarouselHome } from "@/components/CarousalUI";
-import Logout from "@/components/Logout";
-
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 
 export default function Home() {
+  const storeData = useSelector( (state: any )=> state)
+
+  useEffect(()=>{
+    console.log(storeData)
+  },[])
+  
   return (
     <div>
      
@@ -22,7 +29,7 @@ export default function Home() {
       <div className="p-20 ab">
           <CarouselHome />
       </div>
-      <Logout />
+      
 
     </div>
     </div>

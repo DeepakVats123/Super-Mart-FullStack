@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { BASE_URL } from '@/constants/baseURL';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '@/redux/features/userSlice';
 
 
 const Login = () => {
@@ -17,6 +19,7 @@ const Login = () => {
   const [isNavigate, setIsNavigate] = useState<any>(false);
   const {toast} = useToast();
   const navigate = useRouter();
+  const dispatch = useDispatch()
 
 
   const handleInput = (e: any) =>{
@@ -46,7 +49,8 @@ const Login = () => {
 
     setLoading(true)
 
-    const url = `${BASE_URL}/users/login`
+    // const url = `${BASE_URL}/users/login`
+    const url = "http://localhost:4000/api/v1/users/login"
     try {
       const res = await fetch(url,{
         method: 'POST',
@@ -63,21 +67,23 @@ const Login = () => {
         title: "Login Successfully !!",
         description: "Welcome to Super-Mart !!"
       })
-      localStorage.setItem('superMart-token',JSON.stringify(result.data.accessToken))
+      dispatch(loginUser(result))
       setIsNavigate(true)
+
     }
-    else if(result.statusCode === 202){
+    else if(result.statusCode === 401){
       toast({
-        title: "Your email or password is incorrect !!",
-        description: "Please provide valid valid credentials !!"
+        title: result.message,
+        description: "Please provide valid credentials !!"
       })
     }
     
     setTimeout(() => {
       setLoading(false)  
-    }, 2000);
+    }, 1000);
 
-    } catch (error) {
+    } 
+    catch (error) {
       console.log("Error:", error)
       setLoading(false)
     }
