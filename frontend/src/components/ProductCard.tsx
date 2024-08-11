@@ -1,8 +1,12 @@
+"use client"
 import React from 'react'
 import { Button } from './ui/button'
 import Link from 'next/link'
+import { addToCart } from '@/redux/features/userSlice'
+import { BASE_URL } from '@/constants/baseURL'
 
-const ProductCard = ({details, path}: any) => {
+const ProductCard = ({details, path, authToken, addToCartFn}: any) => {
+    
   return (
     <div className='border m-auto max-w-64 rounded-lg overflow-hidden hover:shadow-2xl hover:border-2 hover:border-gray-600'>
         <div className=''>
@@ -23,7 +27,9 @@ const ProductCard = ({details, path}: any) => {
         <br />
 
         <div className='text-center p-2'>
-            <Button className='h-8 align-middle border-black hover:bg-black hover:text-white font-bold dark:hover:text-black dark:hover:border-white dark:border-white dark:hover:bg-white' variant={'outline'}>Add to Cart</Button>
+            <Button onClick={()=>{
+                addToCartFn(details, authToken)
+            }} className='h-8 align-middle border-black hover:bg-black hover:text-white font-bold dark:hover:text-black dark:hover:border-white dark:border-white dark:hover:bg-white' variant={'outline'}>Add to Cart</Button>
         </div>
         
         </div>

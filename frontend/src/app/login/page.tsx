@@ -49,8 +49,8 @@ const Login = () => {
 
     setLoading(true)
 
-    // const url = `${BASE_URL}/users/login`
-    const url = "http://localhost:4000/api/v1/users/login"
+    const url = `${BASE_URL}/users/login`
+    // const url = "http://localhost:4000/api/v1/users/login"
     try {
       const res = await fetch(url,{
         method: 'POST',

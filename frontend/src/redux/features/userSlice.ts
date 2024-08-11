@@ -23,10 +23,10 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         loginUser : (state, action) => {
-            console.log("Login Reducer Called")
             console.log("Payload: ",action.payload)
-            localStorage.setItem('superMart-token',JSON.stringify(action.payload.data.accessToken))
             localStorage.setItem('superMart-user',JSON.stringify(action.payload.data.user.fullName))
+            localStorage.setItem('superMart-token',JSON.stringify(action.payload.data.accessToken))
+            localStorage.setItem("cartItems", JSON.stringify(action.payload.data.user.cartItems))
             state.authToken = action.payload.data.accessToken
             state.authStatus = true
             state.userDetails = action.payload.data.user
@@ -34,12 +34,32 @@ export const userSlice = createSlice({
         },
 
         logoutUser : (state, action) => {
-           state.authToken = ""
+            console.log(action.payload);
+             fetch(`${BASE_URL}/users/logout`,{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${action.payload}`,
+                },
+                body: JSON.stringify({})
+            })
+            .then(res => res.json())
+            .then((res2) => {
+                console.log(res2)
+               })
+            .catch(err=> console.log(err))
+            localStorage.clear()
+            state.authToken = ""
             state.userDetails= {}
-            state.authStatus = action.payload
+            state.authStatus = false
         },
+        addToCart : (state, action) => {
+            console.log(action.payload);
+            localStorage.setItem("cartItems", JSON.stringify(action.payload))
+            state.cartData = action.payload
+        }
     }
 })
 
-export const {loginUser,logoutUser} = userSlice.actions
+export const {loginUser,logoutUser,addToCart} = userSlice.actions
 export default userSlice.reducer

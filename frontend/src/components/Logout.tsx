@@ -20,24 +20,33 @@ import {
   } from "@/components/ui/dropdown-menu"
 import { useDispatch, useSelector } from "react-redux"
 import { logoutUser } from "@/redux/features/userSlice"
+import { useToast } from "./ui/use-toast"
+import { title } from "process"
 
   
   function Logout() {
     const dispatch = useDispatch()
-    const userDetails = useSelector((state: any) => state.userDetails)
+    const storeData = useSelector((state: any) => state)
     const userNameFromLocalStorage: any = localStorage.getItem("superMart-user")
-    
+    const tokenFromLS: any = localStorage.getItem("superMart-token")
+    const {toast}: any = useToast()
+
+    const Token = storeData.authToken || JSON.parse(tokenFromLS)
 
 
     const logOutUserFromApi =  ()=>{
-      dispatch(logoutUser(false))
-      localStorage.clear()
+      dispatch(logoutUser(Token))
+      toast({
+        title: "Logout successfully !!",
+        description: "Thanks for visit Super-Mart !!"
+      })
+      
     }
   
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="hover:bg-blue-500 text ml-3 -mr-2" variant="outline"><User className="mr-2 h-4 w-4" /> {userDetails.fullName || JSON.parse(userNameFromLocalStorage)}</Button>
+          <Button className="hover:bg-blue-500 text ml-3 -mr-2" variant="outline"><User className="mr-2 h-4 w-4" /> {storeData.userDetails.fullName || JSON.parse(userNameFromLocalStorage)}</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-48">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
