@@ -32,6 +32,7 @@ import { title } from "process"
     const {toast}: any = useToast()
 
     const Token = storeData.authToken || JSON.parse(tokenFromLS)
+    const fullName = storeData.userDetails.fullName || JSON.parse(userNameFromLocalStorage)
 
 
     const logOutUserFromApi =  ()=>{
@@ -46,7 +47,7 @@ import { title } from "process"
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="hover:bg-blue-500 text ml-3 -mr-2" variant="outline"><User className="mr-2 h-4 w-4" /> {storeData.userDetails.fullName || JSON.parse(userNameFromLocalStorage)}</Button>
+          <Button className="hover:bg-blue-500 text ml-1 sm:ml-3 -mr-2" variant="outline"><User className="mr-2 h-4 w-4" /> {fullName.split(" ")[0] || fullName}</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-48">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>

@@ -32,7 +32,6 @@ export const userSlice = createSlice({
             state.userDetails = action.payload.data.user
             
         },
-
         logoutUser : (state, action) => {
             console.log(action.payload);
              fetch(`${BASE_URL}/users/logout`,{
@@ -57,9 +56,24 @@ export const userSlice = createSlice({
             console.log(action.payload);
             localStorage.setItem("cartItems", JSON.stringify(action.payload))
             state.cartData = action.payload
+        },
+        incCartItem : (state, action) => {
+            console.log("action.payload", action.payload);
+            localStorage.setItem("cartItems", JSON.stringify(action.payload))
+            state.cartData = action.payload
+        },
+        decCartItem : (state, action) => {
+            console.log("action.payload", action.payload);
+            localStorage.setItem("cartItems", JSON.stringify(action.payload))
+            state.cartData = action.payload
+        },
+        deleteCartItem : (state, action) => {
+            console.log("action.payload", action.payload);
+            localStorage.setItem("cartItems", JSON.stringify(action.payload))
+            state.cartData = action.payload
         }
     }
 })
 
-export const {loginUser,logoutUser,addToCart} = userSlice.actions
+export const {loginUser,logoutUser,addToCart,incCartItem,decCartItem,deleteCartItem} = userSlice.actions
 export default userSlice.reducer

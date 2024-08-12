@@ -71,9 +71,9 @@ const Navbar = ({status}: any) => {
         </div>
 
         <div key={'linksBox'} className='flex gap-5 items-center justify-center lg:col-start-2 lg:row-start-1 row-start-2 col-start-1 col-end-3 ' >
-          {NavLinks.map((e) => {
+          {NavLinks.map((e,i) => {
             const isActive = pathName.startsWith(e.path);
-            return <Link className={isActive? 'font-bold text-blue-500 underline' : 'font-bold hover:text-blue-500'} href={e.path}>{e.name}</Link>
+            return <Link key={i} className={isActive? 'font-bold text-blue-500 underline' : 'font-bold hover:text-blue-500'} href={e.path}>{e.name}</Link>
           })}
             <div className={`flex ${status} items-center`}>
             <span className='text-2xl mr-2'><CiSearch /></span>
@@ -83,15 +83,15 @@ const Navbar = ({status}: any) => {
 
         <div key={'ProfileSideBox'} className='flex items-center justify-end lg:col-start-3 col-start-2'>
             <ThemeToggle  />
-            {isLoggedIn || JSON.parse(userNameFromLocalStorage)? <Logout /> : <Link className={pathName.startsWith('/login') || pathName.startsWith('/signup')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center text-blue-500' : 'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center'} href={'/login'}> <FaUser className='mr-2'/> Login</Link>}
-            <Link  className={pathName.startsWith('/cart')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center text-blue-700 sm:text-2xl text-xl' : 'font-bold sm:ml-5 ml-3 hover:text-blue-400 flex items-center sm:text-2xl text-xl'} href={'/cart'}><FaShoppingCart />
+            {isLoggedIn || JSON.parse(userNameFromLocalStorage)? <Logout /> : <Link key={'login'} className={pathName.startsWith('/login') || pathName.startsWith('/signup')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center text-blue-500' : 'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center'} href={'/login'}> <FaUser className='mr-2'/> Login</Link>}
+            <Link key={'cart'} className={pathName.startsWith('/cart')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center text-blue-700 sm:text-2xl text-xl' : 'font-bold sm:ml-5 ml-3 hover:text-blue-400 flex items-center sm:text-2xl text-xl'} href={'/cart'}><FaShoppingCart />
              <span className='text-white bg-red-500 rounded-full text-xs text-center w-5 -ml-3 -mt-5 font-bold'>9</span>
             </Link>
         </div>
     </div>
 
     {
-      searchItems.length > 0 && <div key={'search item Box'} className={`flex justify-center`}>
+      searchItems.length > 0 && <div key={'search-item-Box'} className={`flex justify-center`}>
       <div className={`w-[90%] sm:w-[500px] h-80 p-1 px-2 border fixed m-auto rounded-lg dark:bg-black dark:text-white bg-white overflow-y-scroll`}>
         <div className='flex justify-between border-b sticky -top-1 dark:bg-black bg-white'>
               <div className='text-slate-600'>{searchItems?.length} products found..</div>

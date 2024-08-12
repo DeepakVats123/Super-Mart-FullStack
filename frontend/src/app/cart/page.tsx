@@ -1,25 +1,57 @@
 "use client"
 import CartCard from '@/components/CartCard'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import EmptyCart from '@/components/EmptyCart'
+import { BASE_URL } from '@/constants/baseURL'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Cart = () => {
-  const storeData = useSelector((state: any) => state.cartData)
+  const storeData = useSelector((state: any) => state)
   const localStorageData: any = localStorage.getItem("cartItems")
-  let cartData = storeData
+  let cartData = storeData.cartData
+  const tokenFromLS: any = localStorage.getItem("superMart-token")
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
 
   if(cartData.length === 0){
     cartData = JSON.parse(localStorageData)
   }
   console.log(cartData);
+  const total = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (e.price * e.quantity), 0) : 0
+  const MrpPrice = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (e.strikedoffprice * e.quantity), 0) : 0
 
+  const cartCardActionFn = async (urlEndPoint: String,product: {},token: string,method: any) => {
+    const url = `${BASE_URL}/${urlEndPoint}`
+    setLoading(true)
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(product),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+      const res2 = await res.json()
+      console.log(res2)
+      dispatch(method(res2.data))
+      setLoading(false)
+      
+    } catch (error) {
+      console.log("cartCardActionError", error)
+    }
+
+  }
   return (
     <>
-      <div className='flex gap-5 lg:gap-10 justify-evenly flex-wrap p-2 sm:p-5'>
-        <div className='sm:w-[60%] min-w-[300px] w-full border rounded-md shadow-md p-2'>
+      {
+        !Array.isArray(cartData) || cartData.length===0 ? <EmptyCart /> :
+
+        <div className='flex gap-5 lg:gap-10 justify-evenly flex-wrap p-2 sm:p-5'>
+        <div className='md:w-[60%] min-w-[300px] w-full border rounded-md shadow-md p-2 h-[500px] scroll-smooth overflow-y-scroll'>
 
               {cartData.map((e: any)=>{
-                return <CartCard data={e} />
+                return <CartCard key={e._id} data={e} cartCardActionFn={cartCardActionFn} token={storeData.authToken || JSON.parse(tokenFromLS)} loading={loading} />
               }) }
         </div>
 
@@ -30,8 +62,8 @@ const Cart = () => {
           <hr />
 
           <div className='flex justify-between px-5 m-3'>
-            <span className='text-left'>Price</span>
-            <span className='text-right'>₹1000</span>
+            <span className='text-left'>Price ({cartData.length} items)</span>
+            <span className='text-right'>₹{total}</span>
           </div>
 
           <div className='flex justify-between px-5 m-3'>
@@ -53,19 +85,21 @@ const Cart = () => {
 
           <div className='flex justify-between px-5 m-3'>
             <span className='text-left font-bold text-lg'>Total</span>
-            <span className='text-right font-bold text-lg'>₹900</span>
+            <span className='text-right font-bold text-lg'>₹{total? MrpPrice-total : 0}</span>
           </div>
           
           <hr />
 
           <div>
-            <p className='text-green-500 text-center m-1 text-sm'>You will save ₹13,825 on this order</p>
+            <p className='text-green-500 text-center m-1 text-sm'>You will save ₹{MrpPrice-total} on this order</p>
           </div>
 
 
         </div>
         
       </div>
+      }
+     
     </>
   )
 }

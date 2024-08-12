@@ -15,11 +15,13 @@ const MenProductsPage = () => {
 
   const [sorting, setsorting] = useState<any>(()=>()=>()=>{})
   const products = useFetch('/products/men')
-  const storeData: any = useSelector((state)=> state)
+  const storeData: any = useSelector((state: any)=> state.authToken)
   const tokenFromLS: any = localStorage.getItem("superMart-token")
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
 
   function addToCartFn(product: any, token: String){
+    setLoading(true)
     const url = `${BASE_URL}/users/add-to-cart`
 
              fetch(url,{
@@ -35,8 +37,12 @@ const MenProductsPage = () => {
             .then(res2 => {
                 console.log(res2.data);
                 dispatch(addToCart(res2.data))
+                setLoading(false)
             })
-            .catch(err => console.log(err))
+            .catch(err =>{
+              console.log(err)
+              setLoading(false)
+            } )
   }
 
   return (
@@ -47,11 +53,11 @@ const MenProductsPage = () => {
     <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-5 gap-5'>
       {
       !products.length ? [1,2,3,4,5].map((e: any) => {
-        return <ProductCardSkeleton />
+        return <ProductCardSkeleton key={e+"a"} />
       })
       :
       products.sort(sorting).map((e: any) => {
-        return <ProductCard key={e._id} details={e} path={'/men'} authToken={storeData.authToken || JSON.parse(tokenFromLS)} addToCartFn={addToCartFn} />
+        return <ProductCard key={e._id} details={e} path={'/men'} authToken={storeData || JSON.parse(tokenFromLS)} addToCartFn={addToCartFn} loading={loading} />
       })
       } 
     </div>
