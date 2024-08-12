@@ -19,6 +19,10 @@ const Cart = () => {
   console.log(cartData);
   const total = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (e.price * e.quantity), 0) : 0
   const MrpPrice = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (e.strikedoffprice * e.quantity), 0) : 0
+  const cartItemsCount = Array.isArray(cartData) ? cartData.reduce((acc, product)=>{
+    return acc + (product.quantity)
+  },0)
+  : 0
 
   const cartCardActionFn = async (urlEndPoint: String,product: {},token: string,method: any) => {
     const url = `${BASE_URL}/${urlEndPoint}`
@@ -62,7 +66,7 @@ const Cart = () => {
           <hr />
 
           <div className='flex justify-between px-5 m-3'>
-            <span className='text-left'>Price ({cartData.length} items)</span>
+            <span className='text-left'>Price ({cartItemsCount} items)</span>
             <span className='text-right'>₹{total}</span>
           </div>
 
@@ -85,7 +89,7 @@ const Cart = () => {
 
           <div className='flex justify-between px-5 m-3'>
             <span className='text-left font-bold text-lg'>Total</span>
-            <span className='text-right font-bold text-lg'>₹{total? MrpPrice-total : 0}</span>
+            <span className='text-right font-bold text-lg'>₹{MrpPrice-total || 0}</span>
           </div>
           
           <hr />

@@ -26,13 +26,14 @@ import { title } from "process"
   
   function Logout() {
     const dispatch = useDispatch()
-    const storeData = useSelector((state: any) => state)
+    const storeData = useSelector((state: any) => state.authToken)
+    const userfullName = useSelector((state: any) => state.userDetails.fullName)
     const userNameFromLocalStorage: any = localStorage.getItem("superMart-user")
     const tokenFromLS: any = localStorage.getItem("superMart-token")
     const {toast}: any = useToast()
 
-    const Token = storeData.authToken || JSON.parse(tokenFromLS)
-    const fullName = storeData.userDetails.fullName || JSON.parse(userNameFromLocalStorage)
+    const Token = storeData || JSON.parse(tokenFromLS)
+    const fullName = userfullName || JSON.parse(userNameFromLocalStorage)
 
 
     const logOutUserFromApi =  ()=>{

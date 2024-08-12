@@ -51,7 +51,7 @@ const WomenProductsPage = () => {
     <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-5 p-5 gap-5'>
       {
       !products.length ? [1,2,3,4,5].map((e: any) => {
-        return <ProductCardSkeleton />
+        return <ProductCardSkeleton key={e+"b"} />
       })
       :
       products && Array.isArray(products) && products.sort(sorting).map((e: any) => {

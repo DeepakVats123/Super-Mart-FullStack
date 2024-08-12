@@ -8,12 +8,7 @@ import { useEffect } from "react";
 
 
 export default function Home() {
-  const storeData = useSelector( (state: any )=> state)
-
-  useEffect(()=>{
-    console.log(storeData)
-  },[])
-  
+    
   return (
     <div>
      
@@ -27,7 +22,7 @@ export default function Home() {
       </div>
 
       <div className="p-20 ab">
-          <CarouselHome />
+          {/* <CarouselHome /> */}
       </div>
       
 

@@ -10,7 +10,6 @@ import slog from '../../public/s-log.png'
 import { Input } from "@/components/ui/input"
 import { usePathname, useRouter } from 'next/navigation';
 import { BASE_URL } from '@/constants/baseURL';
-import { ScrollArea } from "@/components/ui/scroll-area"
 import Logout from './Logout';
 import { useSelector } from 'react-redux';
 
@@ -23,18 +22,17 @@ const Navbar = ({status}: any) => {
   const pathName = usePathname()
   let timer = useRef<any>(null)
   const [searchItems, setSearchItems] = useState<[]>([])
-  const navigate = useRouter()
   const isLoggedIn = useSelector((state: any)=> state.authStatus)
-
+  const cartItems = useSelector((state: any)=> state.cartData)
   const userNameFromLocalStorage: any = localStorage.getItem("superMart-user")
+  const localStorageData: any = localStorage.getItem("cartItems")
+  const cartItemsData = JSON.parse(localStorageData) || cartItems
 
-  // if(localStorage.getItem("superMart-Token")){
-  //   setIsLoggedIn(true)
-  // }
+  const cartItemsCount = Array.isArray(cartItemsData) ? cartItemsData.reduce((acc, product)=>{
+    return acc + (product.quantity)
+  },0)
+  : 0
 
-  // if(isLoggedIn){
-  //   navigate.push('/')
-  // }
 
   const getData = (text: String) => {
     console.log(" get data working");
@@ -84,8 +82,8 @@ const Navbar = ({status}: any) => {
         <div key={'ProfileSideBox'} className='flex items-center justify-end lg:col-start-3 col-start-2'>
             <ThemeToggle  />
             {isLoggedIn || JSON.parse(userNameFromLocalStorage)? <Logout /> : <Link key={'login'} className={pathName.startsWith('/login') || pathName.startsWith('/signup')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center text-blue-500' : 'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center'} href={'/login'}> <FaUser className='mr-2'/> Login</Link>}
-            <Link key={'cart'} className={pathName.startsWith('/cart')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center text-blue-700 sm:text-2xl text-xl' : 'font-bold sm:ml-5 ml-3 hover:text-blue-400 flex items-center sm:text-2xl text-xl'} href={'/cart'}><FaShoppingCart />
-             <span className='text-white bg-red-500 rounded-full text-xs text-center w-5 -ml-3 -mt-5 font-bold'>9</span>
+            <Link key={'cart'} className={pathName.startsWith('/cart')?'font-bold sm:ml-5 ml-3 hover:text-blue-500 flex items-center  sm:text-2xl text-xl' : 'font-bold sm:ml-5 ml-3 hover:text-blue-400 flex items-center sm:text-2xl text-xl'} href={'/cart'}><FaShoppingCart />
+             <span className='text-white bg-red-500 rounded-full text-xs text-center w-5 -ml-3 -mt-5 font-bold'>{cartItemsCount}</span>
             </Link>
         </div>
     </div>
