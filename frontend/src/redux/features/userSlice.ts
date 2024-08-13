@@ -30,7 +30,6 @@ export const userSlice = createSlice({
             state.authToken = action.payload.data.accessToken
             state.authStatus = true
             state.userDetails = action.payload.data.user
-            
         },
         logoutUser : (state, action) => {
             console.log(action.payload);

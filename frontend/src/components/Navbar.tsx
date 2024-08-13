@@ -8,7 +8,7 @@ import { CiSearch } from "react-icons/ci";
 import Image from 'next/image';
 import slog from '../../public/s-log.png'
 import { Input } from "@/components/ui/input"
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { BASE_URL } from '@/constants/baseURL';
 import Logout from './Logout';
 import { useSelector } from 'react-redux';
@@ -33,7 +33,6 @@ const Navbar = ({status}: any) => {
   },0)
   : 0
 
-
   const getData = (text: String) => {
     console.log(" get data working");
     fetch(`${BASE_URL}/products/search?text=${text}`)
@@ -48,11 +47,7 @@ const Navbar = ({status}: any) => {
     timer.current = setTimeout(()=>{
       getData(event.target.value)
   },800)
-    
-    
   }
-
-  
 
   return (
     <>
@@ -60,12 +55,11 @@ const Navbar = ({status}: any) => {
 
         <div key={'IconBox'} className='text-left lg:col-start-1'> 
         <Link href={'/'}>
-            {/* <h1 className='font-bold text-2xl'>Super-Mart</h1> */}
             <Image className='ml-3 -mb-1' src={slog} alt='S-Logo' width={40} height={40} />
-            
-            <span className='text-xs font-bold'>Super Mart</span>
-            
         </Link>
+        
+        <span className='text-xs font-bold'>Super Mart</span>
+
         </div>
 
         <div key={'linksBox'} className='flex gap-5 items-center justify-center lg:col-start-2 lg:row-start-1 row-start-2 col-start-1 col-end-3 ' >
@@ -101,7 +95,9 @@ const Navbar = ({status}: any) => {
       
       {
         searchItems.map((e: any) => {
-          return <Link key={e._id} href={{pathname: "/product", query: {id : e._id} }}>
+          return <Link onClick={()=>{
+            setSearchItems([])
+          }} key={e._id} href={{pathname: "/product", query: {id : e._id} }}>
           <div className='flex h-16 w-full border my-1 rounded-lg overflow-hidden hover:bg-slate-200 dark:hover:bg-gray-900'>
             <div className='w-14 overflow-hidden'>
               <img className='w-full' src={e.image_url} alt="" />

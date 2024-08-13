@@ -7,6 +7,7 @@ import useFetch from '@/utils/useFetch';
 import { useDispatch, useSelector } from 'react-redux';
 import { BASE_URL } from '@/constants/baseURL';
 import { addToCart } from '@/redux/features/userSlice';
+import { useToast } from '@/components/ui/use-toast';
 
 
 
@@ -18,9 +19,18 @@ const MenProductsPage = () => {
   const storeData: any = useSelector((state: any)=> state.authToken)
   const tokenFromLS: any = localStorage.getItem("superMart-token")
   const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const {toast} = useToast()
 
   function addToCartFn(product: any, token: String){
+    
+    if(JSON.parse(tokenFromLS) == null){
+      console.log("Token Not found");
+      toast({
+        title: "Login Required",
+        description: "Please Login to perform this opration"
+      })
+    }
     setLoading(true)
     const url = `${BASE_URL}/users/add-to-cart`
 

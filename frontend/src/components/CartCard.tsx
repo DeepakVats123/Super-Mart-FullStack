@@ -5,7 +5,7 @@ import { FaPlus } from "react-icons/fa6";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { incCartItem, decCartItem, deleteCartItem } from '@/redux/features/userSlice'
 
-const CartCard = ({ data, cartCardActionFn, token, method,loading }: any) => {
+const CartCard = ({ data, cartCardActionFn, token, loading }: any) => {
   return (
     <div className=" flex border my-2 w-full">
       <div className="w-[130px] sm:w-[140px] overflow-hidden">
