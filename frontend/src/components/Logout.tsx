@@ -48,7 +48,7 @@ import { title } from "process"
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="hover:bg-blue-500 text ml-1 sm:ml-3 -mr-2" variant="outline"><User className="mr-2 h-4 w-4" /> {fullName.split(" ")[0] || fullName}</Button>
+          <Button className="hover:bg-blue-500 px-1 sm:px-3 ml-1 sm:ml-3 -mr-2" variant="outline"><User className="mr-1 h-4 w-4" />{fullName.split(" ")[0] || fullName}</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-48">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
