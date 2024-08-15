@@ -1,6 +1,7 @@
 "use client"
 import CartCard from '@/components/CartCard'
 import EmptyCart from '@/components/EmptyCart'
+import { Button } from '@/components/ui/button'
 import { BASE_URL } from '@/constants/baseURL'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,7 +22,7 @@ const Cart = () => {
   const total = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (e.price * e.quantity), 0) : 0
   const MrpPrice = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (Number(e.strikedoffprice) * e.quantity), 0) : 0
   const cartItemsCount = Array.isArray(cartData) ? cartData.reduce((acc, product)=>{
-    return acc + (product.quantity)
+     return acc + (product.quantity)
   },0)
   : 0;
 
@@ -53,7 +54,7 @@ const Cart = () => {
         !Array.isArray(cartData) || cartData.length===0 ? <EmptyCart /> :
 
         <div className='flex gap-5 lg:gap-10 justify-center flex-wrap p-2 sm:p-5'>
-        <div className='md:w-[40%] max-h-[340px] sm:max-h-[450px] min-w-[370px] border rounded-md shadow-md p-2 h-auto scroll-smooth overflow-y-scroll hide-scrollbar'>
+        <div className='md:w-[40%] max-h-[340px] sm:max-h-[450px] min-w-[370px] border rounded-md shadow-md p-2 h-auto scroll-smooth overflow-y-scroll '>
 
               {cartData.map((e: any)=>{
                 return <CartCard key={e._id} data={e} cartCardActionFn={cartCardActionFn} token={storeData.authToken || JSON.parse(tokenFromLS)} loading={loading} />
@@ -93,6 +94,18 @@ const Cart = () => {
             <span className='text-right font-bold text-lg'>₹{total-100 || 0}</span>
           </div>
           
+          <hr />
+
+          <div className='text-center py-2'>
+          <Button
+            className="text-xl align-middle border-slate-500 bg-orange-600 text-white font-bold hover:bg-orange-500 rounded-md px-2 py-2"
+            variant={"outline"}
+            disabled={loading}
+          >
+            Place Order
+          </Button>
+          </div>
+
           <hr />
 
           <div>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useFetch from '@/utils/useFetch'
 import ProductDetails from '@/components/ProductDetails'
 
-const page = ({params}: any) => {
+const Page = ({params}: any) => {
   const data: any =  useFetch(`/products/get-Product?id=${params.product}`)
   console.log(data)
   
@@ -14,4 +14,4 @@ const page = ({params}: any) => {
   )
 }
 
-export default page
+export default Page
