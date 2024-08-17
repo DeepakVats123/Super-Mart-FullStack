@@ -77,9 +77,16 @@ export const userSlice = createSlice({
             console.log("action.payload", action.payload);
             localStorage.setItem("cartItems", JSON.stringify(action.payload))
             state.cartData = action.payload
-        }
+        },
+        orderNow : (state, action) => {
+            console.log("action.payload", action.payload);
+            localStorage.setItem("superMart-orders", JSON.stringify(action.payload))
+            localStorage.removeItem("cartItems")
+            state.ordersHistory = action.payload
+            state.cartData = []
+        },
     }
 })
 
-export const {loginUser,logoutUser,addToCart,incCartItem,decCartItem,deleteCartItem} = userSlice.actions
+export const {loginUser,logoutUser,addToCart,incCartItem,decCartItem,deleteCartItem,orderNow} = userSlice.actions
 export default userSlice.reducer

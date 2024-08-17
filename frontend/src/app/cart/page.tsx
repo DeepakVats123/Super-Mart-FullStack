@@ -3,6 +3,7 @@ import CartCard from '@/components/CartCard'
 import EmptyCart from '@/components/EmptyCart'
 import { Button } from '@/components/ui/button'
 import { BASE_URL } from '@/constants/baseURL'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -14,12 +15,8 @@ const Cart = () => {
 
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
+  const navigate = useRouter()
   
-
-  // if(cartData.length === 0){
-  //   cartData = JSON.parse(lsCartData)
-  // }
-  // console.log(cartData);
   const total = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (e.price * e.quantity), 0) : 0
   const MrpPrice = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (Number(e.strikedoffprice) * e.quantity), 0) : 0
   const cartItemsCount = Array.isArray(cartData) ? cartData.reduce((acc, product)=>{
@@ -109,6 +106,9 @@ const Cart = () => {
             className="text-xl align-middle border-slate-500 bg-orange-600 text-white font-bold hover:bg-orange-500 rounded-md px-2 py-2"
             variant={"outline"}
             disabled={loading}
+            onClick={()=>{
+              navigate.push('/checkout')
+            }}
           >
             Place Order
           </Button>
