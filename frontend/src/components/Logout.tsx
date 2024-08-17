@@ -21,19 +21,19 @@ import {
 import { useDispatch, useSelector } from "react-redux"
 import { logoutUser } from "@/redux/features/userSlice"
 import { useToast } from "./ui/use-toast"
-import { title } from "process"
+import { useEffect, useState } from "react"
+
 
   
-  function Logout() {
+  function Logout({setLsCartData,setTokenFromLS}: any) {
     const dispatch = useDispatch()
     const storeData = useSelector((state: any) => state.authToken)
     const userfullName = useSelector((state: any) => state.userDetails.fullName)
-    const userNameFromLocalStorage: any = localStorage.getItem("superMart-user")
-    const tokenFromLS: any = localStorage.getItem("superMart-token")
+    const [lsUserData, setLsUserData] = useState<any>(null)
     const {toast}: any = useToast()
 
-    const Token = storeData || JSON.parse(tokenFromLS)
-    const fullName = userfullName || JSON.parse(userNameFromLocalStorage)
+    const Token = storeData
+    const fullName = lsUserData? lsUserData.split(" ")[0] : ''
 
 
     const logOutUserFromApi =  ()=>{
@@ -41,14 +41,21 @@ import { title } from "process"
       toast({
         title: "Logout successfully !!",
         description: "Thanks for visit Super-Mart !!"
-      })
-      
+      }) 
+      setTokenFromLS(null)
+      setLsCartData([])
     }
+
+    useEffect(()=>{
+      const userData: any = localStorage.getItem("superMart-user")
+      const user: any = JSON.parse(userData)
+      setLsUserData(user.fullName)
+    },[])
   
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="hover:bg-blue-500 px-1 sm:px-3 ml-1 sm:ml-3 -mr-2" variant="outline"><User className="mr-1 h-4 w-4" />{fullName.split(" ")[0] || fullName}</Button>
+          <Button className="hover:bg-blue-500 px-1 sm:px-3 ml-1 sm:ml-3 -mr-2" variant="outline"><User className="mr-1 h-4 w-4" />{fullName}</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-48">
           <DropdownMenuLabel>My Account</DropdownMenuLabel>

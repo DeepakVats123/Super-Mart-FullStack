@@ -6,16 +6,18 @@ interface user {
     authToken: String,
     userDetails: {},
     cartData: [],
-    orderHistory: [] 
+    ordersHistory: [] 
 }
+
 
 const initialState: user = {
     authStatus: null,
     authToken: "",
     userDetails: {},
     cartData: [],
-    orderHistory: []
+    ordersHistory: []
 }
+
 
 
 export const userSlice = createSlice({
@@ -24,12 +26,15 @@ export const userSlice = createSlice({
     reducers: {
         loginUser : (state, action) => {
             console.log("Payload: ",action.payload)
-            localStorage.setItem('superMart-user',JSON.stringify(action.payload.data.user.fullName))
+            localStorage.setItem('superMart-user',JSON.stringify(action.payload.data.user))
             localStorage.setItem('superMart-token',JSON.stringify(action.payload.data.accessToken))
             localStorage.setItem("cartItems", JSON.stringify(action.payload.data.user.cartItems))
+            localStorage.setItem('superMart-orders', JSON.stringify(action.payload.data.user.ordersHistory))
             state.authToken = action.payload.data.accessToken
             state.authStatus = true
             state.userDetails = action.payload.data.user
+            state.cartData = action.payload.data.user.cartItems
+            state.ordersHistory = action.payload.data.user.ordersHistory
         },
         logoutUser : (state, action) => {
             console.log(action.payload);
@@ -50,6 +55,8 @@ export const userSlice = createSlice({
             state.authToken = ""
             state.userDetails= {}
             state.authStatus = false
+            state.cartData = []
+            state.ordersHistory = []
         },
         addToCart : (state, action) => {
             console.log(action.payload);

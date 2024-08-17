@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/ProductCard';
 import ProductCardSkeleton from '@/components/ProductCardSkeleton';
 import Filters from '@/components/Filters';
@@ -17,7 +17,7 @@ const MenProductsPage = () => {
   const [sorting, setsorting] = useState<any>(()=>()=>()=>{})
   const products = useFetch('/products/men')
   const storeData: any = useSelector((state: any)=> state.authToken)
-  const tokenFromLS: any = localStorage.getItem("superMart-token")
+  const [tokenFromLS, setTokenFromLS] = useState<any>("")
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false);
   const {toast} = useToast()
@@ -54,6 +54,10 @@ const MenProductsPage = () => {
               setLoading(false)
             } )
   }
+
+  useEffect(()=>{
+      setTokenFromLS(localStorage.getItem("superMart-token"))
+    },[])
 
   return (
     <div>

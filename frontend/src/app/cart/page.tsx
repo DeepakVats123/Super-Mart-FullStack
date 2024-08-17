@@ -3,21 +3,22 @@ import CartCard from '@/components/CartCard'
 import EmptyCart from '@/components/EmptyCart'
 import { Button } from '@/components/ui/button'
 import { BASE_URL } from '@/constants/baseURL'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const Cart = () => {
+  const [lsCartData,setLsCartData] = useState<any>(null)
+  const [tokenFromLS, setTokenFromLS] = useState<any>("")
   const storeData = useSelector((state: any) => state)
-  const localStorageData: any = localStorage.getItem("cartItems")
-  let cartData = storeData.cartData
-  const tokenFromLS: any = localStorage.getItem("superMart-token")
+  let cartData = storeData.cartData.length? storeData.cartData : JSON.parse(lsCartData) 
+
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   
 
-  if(cartData.length === 0){
-    cartData = JSON.parse(localStorageData)
-  }
+  // if(cartData.length === 0){
+  //   cartData = JSON.parse(lsCartData)
+  // }
   // console.log(cartData);
   const total = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (e.price * e.quantity), 0) : 0
   const MrpPrice = Array.isArray(cartData) ? cartData.reduce((acc: any, e:any)=> acc + (Number(e.strikedoffprice) * e.quantity), 0) : 0
@@ -35,7 +36,7 @@ const Cart = () => {
         body: JSON.stringify(product),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${JSON.parse(token)}`,
         }
       })
       const res2 = await res.json()
@@ -48,16 +49,23 @@ const Cart = () => {
     }
 
   }
+
+  useEffect(()=>{
+    setLsCartData(localStorage.getItem("cartItems"))
+    setTokenFromLS(localStorage.getItem("superMart-token"))
+  },[storeData])
+
   return (
     <>
       {
         !Array.isArray(cartData) || cartData.length===0 ? <EmptyCart /> :
 
         <div className='flex gap-5 lg:gap-10 justify-center flex-wrap p-2 sm:p-5'>
+
         <div className='md:w-[40%] max-h-[340px] sm:max-h-[450px] min-w-[370px] border rounded-md shadow-md p-2 h-auto scroll-smooth overflow-y-scroll '>
 
               {cartData.map((e: any)=>{
-                return <CartCard key={e._id} data={e} cartCardActionFn={cartCardActionFn} token={storeData.authToken || JSON.parse(tokenFromLS)} loading={loading} />
+                return <CartCard key={e._id} data={e} cartCardActionFn={cartCardActionFn} token={tokenFromLS} loading={loading} />
               }) }
         </div>
 
@@ -115,7 +123,7 @@ const Cart = () => {
 
         </div>
         
-      </div>
+        </div>
       }
      
     </>

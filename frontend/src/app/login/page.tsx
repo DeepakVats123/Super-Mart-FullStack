@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from "@/components/ui/input"
 import { Button } from '@/components/ui/button';
 import slog from '../../../public/s-log.png'
@@ -20,6 +20,7 @@ const Login = () => {
   const {toast} = useToast();
   const navigate = useRouter();
   const dispatch = useDispatch()
+  const [tokenFromLS, setTokenFromLS] = useState<any>("")
 
 
   const handleInput = (e: any) =>{
@@ -94,9 +95,13 @@ const Login = () => {
     navigate.push('/')
   }
 
-  if(isNavigate || localStorage.getItem('superMart-token')){
+  if(isNavigate || tokenFromLS){
     handleNavigation()
   }
+
+  useEffect(()=>{
+    setTokenFromLS(localStorage.getItem("superMart-token"))
+  },[])
 
   return (
     <div>

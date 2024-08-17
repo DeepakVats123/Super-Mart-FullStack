@@ -6,15 +6,19 @@ import { CarouselHome } from "@/components/CarousalUI";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 
 export default function Home() {
 
-  const token: any = localStorage.getItem("superMart-token");
+  const [tokenFromLS, setTokenFromLS] = useState<any>("")
+  
   const navigate = useRouter();
 
   
-    
+  useEffect(()=>{
+    setTokenFromLS(localStorage.getItem("superMart-token"))
+  },[]) 
   return (
     <>
      
@@ -31,7 +35,7 @@ export default function Home() {
 
         <div className="text-center pt-10">
           <Button onClick={()=>{
-            if(token){
+            if(tokenFromLS){
               navigate.push('/men')
             }else{
               navigate.push('/login')
