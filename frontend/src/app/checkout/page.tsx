@@ -79,6 +79,22 @@ const CheckoutPage = () => {
     return errors;
   };
 
+  function deleteAllCartItems(){
+    fetch(`${BASE_URL}/users/cart/delete-all`,{
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+              'Authorization': `Bearer ${JSON.parse(tokenFromLS)}`,
+      },
+      body: JSON.stringify({})
+      })
+        .then(res => res.json())
+        .then((res2) => {
+            console.log(res2)
+          })
+        .catch(err=> console.log(err))
+  }
+
   async function submitForm(e:any) {
     e.preventDefault()
     const isValid = validateSignIn(formData);
@@ -104,6 +120,7 @@ const CheckoutPage = () => {
       setLoading(false)
       setBtnDisable(false)
       setNavigateTo(true)
+      deleteAllCartItems()
       
     } catch (error) {
       console.log("OrderApiError", error) 
