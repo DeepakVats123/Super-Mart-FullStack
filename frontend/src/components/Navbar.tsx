@@ -56,7 +56,7 @@ const Navbar = ({status}: any) => {
       const token: any = localStorage.getItem("superMart-token")
       setTokenFromLS(token)
       setLsCartData(JSON.parse(data))
-    },[isLoggedIn])
+    },[isLoggedIn,cartItems])
   return (
     <>
     <div className='grid lg:grid-cols-3 grid-cols-2 gap-2  lg:p-5 px-5 py-2 lg:px-10 sticky top-0 dark:bg-slate-800 bg-white shadow-md'>

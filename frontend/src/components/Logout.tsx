@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { logoutUser } from "@/redux/features/userSlice"
 import { useToast } from "./ui/use-toast"
 import { useEffect, useState } from "react"
+import Link from "next/link"
 
 
   
@@ -33,7 +34,7 @@ import { useEffect, useState } from "react"
     const {toast}: any = useToast()
 
     const Token = storeData
-    const fullName = lsUserData? lsUserData.split(" ")[0] : ''
+    const fullName = lsUserData? lsUserData.split(" ")[0] : lsUserData || ""
 
 
     const logOutUserFromApi =  ()=>{
@@ -61,15 +62,15 @@ import { useEffect, useState } from "react"
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            {/* <DropdownMenuItem>
               <User className="mr-2 h-4 w-4" />
               <span>Profile</span>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem>
               <CreditCard className="mr-2 h-4 w-4" />
-              <span>Orders</span>
-              <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+              <Link href={'/orders'}><span>Orders</span></Link>
+              <DropdownMenuShortcut>⌘O</DropdownMenuShortcut>
             </DropdownMenuItem>
 
           </DropdownMenuGroup>
@@ -89,7 +90,7 @@ import { useEffect, useState } from "react"
           <DropdownMenuItem className="cursor-pointer" onClick={logOutUserFromApi}>
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
-            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+            <DropdownMenuShortcut>⇧⌘LO</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

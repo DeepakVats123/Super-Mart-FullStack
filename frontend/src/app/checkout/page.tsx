@@ -38,7 +38,7 @@ const CheckoutPage = () => {
 
   const router = useRouter();
   const handleNavigation = () => {
-    router.push('/');
+    router.push('/orders');
   };
 
   if(navigateTo){
