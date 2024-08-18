@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
@@ -29,11 +30,11 @@ const Orders = () => {
       </div>
 
       <div className='m-5 sm:px-20'>
-          { Array.isArray(orders) && orders.length > 0? orders.slice().reverse().map((order:any)=>{
-              return <div className='flex border p-2 mb-2 items-center gap-4 rounded-lg'>
+          { Array.isArray(orders) && orders.length > 0? orders.slice().reverse().map((order:any,ind)=>{
+              return <div key={ind+1+"a"} className='flex border p-2 mb-2 items-center gap-4 rounded-lg'>
                         <div className=''>
                             <div className='w-12'>
-                              <img className='w-full' src={order.items[0].image_url} alt="" />
+                              <Image className='w-full' src={order.items[0].image_url} alt="" />
                             </div>    
                             <div className='border mt-1 w-12'>
                                 <p className='text-xs'>{order.items.length} more</p>
@@ -50,7 +51,7 @@ const Orders = () => {
 
                      </div>
           })
-          : <div>You don't have any order history</div>
+          : <div>{"You don't have any order history"}</div>
         }
       </div>
     </>
