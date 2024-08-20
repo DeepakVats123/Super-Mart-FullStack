@@ -1,5 +1,5 @@
 # Super-Mart-FullStack
-A Full Stack Web App using Node.js, Express.js &amp; MongoDB to create Backend &amp; Next.js to create Frontend.
+A Full Stack E-Commerce Web App using Node.js, Express.js &amp; MongoDB to create Backend &amp; Next.js to create Frontend.
 
 # Deployed link of the project
 
@@ -39,31 +39,35 @@ A Full Stack Web App using Node.js, Express.js &amp; MongoDB to create Backend &
 
    ![Screenshot (68)](https://github.com/user-attachments/assets/ce9eb643-f0a4-48ae-ad1c-436c68ed4e0f)
 
-6. My Orders History Page (manage from backend)
+6. DataBase CRUD Operation to manage Cart Products (manage from backend)
+
+   Increment/Decrement cart product quantity & Delete from Cart
+   ![Screenshot (79)](https://github.com/user-attachments/assets/cabe580f-8942-4f7f-a398-adeabff51613)
+
+7. My Orders History Page (manage from backend)
 
    ![Screenshot (70)](https://github.com/user-attachments/assets/dbf0d741-65b3-462c-847a-025e51b033e3)
 
-7. Checkout Page
+8. Checkout Page
 
    ![Screenshot (69)](https://github.com/user-attachments/assets/cb127a3f-f169-412e-aede-23e605b7e7d7)
 
-8. Searching by keywords (manage from backend API)
+9. Searching by keywords (manage from backend API)
 
    ![Screenshot (65)](https://github.com/user-attachments/assets/ccd24989-d36d-4d71-a571-019a39ad03f3)
 
-9. Dark/Light Modes
+10. Dark/Light Modes
 
    ![Screenshot (66)](https://github.com/user-attachments/assets/3f5ebbea-1c92-4996-81e8-497484ae931a)
    ![Screenshot (77)](https://github.com/user-attachments/assets/7548eb3a-c76b-4ed2-b6b0-037bf1ce4768)
 
-10. Product Details Page
+11. Product Details Page
 
    ![Screenshot (71)](https://github.com/user-attachments/assets/23dfa24a-9470-4411-869a-03c6846088e8)
 
-11. DataBase CRUD Operation to manage Cart Products (manage from backend)
+12. Footer
 
-    Increment/Decrement cart product quantity & Delete from Cart
-    ![Screenshot (79)](https://github.com/user-attachments/assets/cabe580f-8942-4f7f-a398-adeabff51613)
+    ![Screenshot (72)](https://github.com/user-attachments/assets/f3a31613-aa35-47a4-b284-f1532713cd9e)
 
 
 
