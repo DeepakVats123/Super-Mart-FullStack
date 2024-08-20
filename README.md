@@ -1,5 +1,5 @@
 # Super-Mart-FullStack
-A Full Stack E-Commerce Web App using Node.js, Express.js &amp; MongoDB to create Backend &amp; Next.js to create Frontend.
+A Full Stack E-commerce Web App using Node.js, Express.js & MongoDB to create Backend & Next.js to create Frontend. Here user can shop men's and women's products. Searching by keywords , sorting, login/signup(JWT), cart products increment, decrement, delete, checkout, orders history and many more functionalities added.
 
 # Deployed link of the project
 
