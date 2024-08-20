@@ -3,7 +3,9 @@ A Full Stack E-commerce Web App using Node.js, Express.js & MongoDB to create Ba
 
 # Deployed link of the project
 
-> [SuperMart.com](https://super-mart-full-stack.vercel.app/)
+> [SuperMart.com](https://super-mart-full-stack.vercel.app/) <br />
+> [Backend Repo Link](https://github.com/DeepakVats123/SuperMart-Backend)
+
 # Technology We Used
 1. Next.js
 2. Tailwind CSS
